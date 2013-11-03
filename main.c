@@ -164,6 +164,10 @@ void parse_and_execute_command(const char *buf, uint8_t num)
 		*(uint8_t *)(0x21 + port * 3) &= ~(1 << pin);
 		// read the pin
 		val = *(uint8_t *)(0x20 + port * 3) & (1 << pin);
+        
+        usb_serial_putchar(val ? '1' : '0');
+        send_str(PSTR("\r\n"));
+
 		return;
 	}
 	// if the third character is an equals sign, write the pin
