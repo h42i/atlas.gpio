@@ -162,6 +162,8 @@ void parse_and_execute_command(const char *buf, uint8_t num)
 	if (buf[2] == '?') {
 		// make the pin an input
 		*(uint8_t *)(0x21 + port * 3) &= ~(1 << pin);
+        // drive it high for high impedance
+        *(uint8_t *)(0x22 + port * 3) |= (1 << pin);
 		// read the pin
 		val = *(uint8_t *)(0x20 + port * 3) & (1 << pin);
         
